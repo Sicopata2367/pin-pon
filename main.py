@@ -22,14 +22,14 @@ class Player1(GameSprite):
         keys = key.get_pressed()
         if keys[K_w] and self.rect.y > 0:
             self.rect.y -= self.speed
-        if keys[K_s] and self.rect.y < 400:
+        if keys[K_s] and self.rect.y < 420:
             self.rect.y += self.speed
 class Player2(GameSprite):
     def update(self):
         keys = key.get_pressed()
         if keys[K_UP] and self.rect.y > 0:
             self.rect.y -= self.speed
-        if keys[K_DOWN] and self.rect.y < 400:
+        if keys[K_DOWN] and self.rect.y < 420:
             self.rect.y += self.speed
 
 class Ball(GameSprite):
@@ -48,8 +48,14 @@ class Ball(GameSprite):
 
 p1 =  Player1('racket.png', 0, 200, 5, 10, 80)
 p2 =  Player2('racket.png', 690, 200, 5, 10, 80)
-bal = Ball('tenis_ball.png', 456, 239, 2, 50, 50)
-        
+bal = Ball('tenis_ball.png', 456, 239, 5, 50, 50)
+
+font.init()
+font1 = font.SysFont('verdana', 50)
+
+win = font1.render('p1 gano!', True, (0, 255, 0))
+win2 = font1.render('p2 gano!', True, (0, 255, 0))
+
 game = True
 finish = False
 while game:
@@ -65,6 +71,13 @@ while game:
         p2.reset()
         bal.update()
         bal.reset()
+        if bal.rect.x < 0:
+            window.blit(win2, (50, 50))
+            finish = True
+        if bal.rect.x > 650:
+            window.blit(win, (50, 50))
+            finish = True
+
 
 
 
